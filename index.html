@@ -16,10 +16,40 @@ var sServiceURL=
 var oModel = sap.ui.model.odata.v2.ODataModel(sServiceURL);
 // don'tbatchtherequestsfornow
 oModel.setUseBatch(false);
-oModel.attachMetadataLoaded(function() {
+function fnSuccess(oData, oResponse){
+	
+	console.log("Data", oData);
+	console.log("Response", oResponse);
+}
+function fnError( oError){
+	console.log("Error", oError);
+}
+
+oModel.read("/Products(1)", {
+	success: fnSuccess,
+	error : fnError
+})
+
+oModel.read("/Products(abe)", {
+	success: fnSuccess,
+	error : fnError
+})
+
+oModel.read("/Products(2)", {
+	success: function(oData, oResponse) {
+	console.log("Data", oData);
+	console.log("Response", oResponse);	
+	},
+	error : function(oError){
+		console.log("Error", oError);
+	}
+})
+
+
+/*oModel.attachMetadataLoaded(function() {
 var oMetaData=oModel.getServiceMetadata();
 console.log("Service Metadata", oMetaData);
-});
+});*/
 sap.ui.getCore().setModel(oModel);
 </script>
 </head>
