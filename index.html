@@ -58,6 +58,34 @@ var oMetaData=oModel.getServiceMetadata();
 console.log("Service Metadata", oMetaData);
 });*/
 sap.ui.getCore().setModel(oModel);
+
+// display the product name
+/*var oText = new sap.m.Text({
+text: "Product name: {ProductName}"
+});
+oText.addStyleClass("sapUiMediumMargin");
+
+// bind the whole page to the product 1
+// so that the product name of product 1 wil be shown
+oPageMaster.bindElement("/Products(1)");*/
+// absolute binding
+// display the product name
+var oText=new sap.m.Text({
+text: "Productname: {/Products(1)/ProductName}"
+});
+
+var oPageMaster = new sap.m.Page("masterPage", {
+title: "Product 1 Info",
+content: [oText]
+});
+// absolute binding
+oPageMaster.bindElement("/Products");
+
+var oApp = new sap.m.App();
+oApp.addPage(oPageMaster);
+oApp.placeAt("content");
+
+
 </script>
 </head>
 <body class="sapUiBody" role="application">
